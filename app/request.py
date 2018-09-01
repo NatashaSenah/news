@@ -39,7 +39,7 @@ def process_results(news_list):
             news_results.append(news_object)
 
     return news_results
-def get_news(id):
+def get_brief(id):
     get_news_details_url = base_url.format(id,api_key)
 
     with urllib.request.urlopen(get_news_details_url) as url:

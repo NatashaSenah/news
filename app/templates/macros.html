@@ -1,7 +1,16 @@
 {% macro displayNewsList(news_list) %}
 
-    {% for news in general_news %}
-        <li>{{ news.name}}</li>
-    {% endfor %}
+    {% for news in news_list %}
+        <!-- <li>{{ news.name}}</li> -->
+
+<div class="card md3 col-nd-3">
+    <a class="list-group-item list-group-item-action active" >
+        <li style="list-style:none">{{news.name}}</li>
+        </a>
+        <p>{{news.description}}</p><br>
+        <p>{{news.category}}</p><br>
+        <p>{{news.country}}</p><br>
+</div>
+{% endfor %}
 
 {% endmacro %}
