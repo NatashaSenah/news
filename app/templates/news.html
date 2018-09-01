@@ -1,5 +1,11 @@
 {% extends 'base.html'%}
 {% block content %}
-
+{% for item in articles %}
+<ul>{{item.author}}</ul>
+<ul>{{item.title}}</ul>
+<ul>{{item.description}}</ul>
+<ul>{{item.url}}</ul>
+<ul>{{item.publishedAt}}</ul>
+{% endfor%}
 {% endblock %}
 

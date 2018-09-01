@@ -3,7 +3,8 @@ import urllib.request,json
 from .models import news
 
 News = news.News
-
+Articles=news.Articles
+article_url=app.config['ARTICLES_BASE_URL']
 # Getting api key
 api_key = app.config['NEWS_API_KEY']
 
@@ -58,3 +59,34 @@ def get_brief(id):
             news_object = News(id,name,description,category,country)
 
     return news_object
+def get_new(news_id,limit):
+   '''
+   Function that gets the json response to our url request
+   '''
+   get_articles_url = article_url.format(news_id,limit,api_key)
+   print(get_articles_url)
+
+   with urllib.request.urlopen(get_articles_url) as url:
+       get_articles_data = url.read()
+       get_articles_response = json.loads(get_articles_data)
+
+       articles_results = None
+
+       if get_articles_response['articles']:
+           articles_results_list = get_articles_response['articles']
+           articles_results = process_articles(articles_results_list)
+
+   return articles_results
+def process_articles(news):
+   source_articles = []
+   for item_article in news:
+       author = item_article.get('author')
+       title = item_article.get('title')
+       description = item_article.get('description')
+       url = item_article.get('url')
+       urlToImage = item_article.get('urlToImage')
+       publishedAt = item_article.get('publishedAt')
+       if urlToImage:
+           articles_object = Articles(author,title,description,url,urlToImage,publishedAt)
+           source_articles.append(articles_object)
+   return source_articles
