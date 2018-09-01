@@ -1,12 +1,13 @@
 import unittest
-from models import news
+from .models import news
+
 News = news.News
 
 class NewsTest(unittest.TestCase):
    
     def setUp(self):
         
-        self.new_news = News(1234,'James','Nation','A government officer being imprissoned')
+        self.new_news = News(1234,'ABCNews','A government officer being imprissoned','general')
 
     def test_instance(self):
         self.assertTrue(isinstance(self.new_news,News))
