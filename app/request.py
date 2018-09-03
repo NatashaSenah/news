@@ -7,8 +7,10 @@ Articles=news.Articles
 article_url=app.config['ARTICLES_BASE_URL']
 # Getting api key
 api_key = app.config['NEWS_API_KEY']
-
+articles_url=app.config['ARTICLES_BASE_URL']
 base_url = app.config["NEWS_API_BASE_URL"]
+
+
 def get_news(category):
     
     get_news_url = base_url.format(category,api_key)
@@ -77,6 +79,22 @@ def get_new(news_id,limit):
            articles_results = process_articles(articles_results_list)
 
    return articles_results
+def get_articles(source_id, limit):
+    """
+    Function that gets articles based on the source id
+    """
+    get_article_location_url = articles_url.format(source_id, limit, apiKey)
+
+    with urllib.request.urlopen(get_article_location_url) as url:
+        articles_location_data = url.read()
+        articles_location_response = json.loads(articles_location_data)
+
+        articles_location_results = None
+
+        if articles_location_response['articles']:
+            articles_location_results = process_articles(articles_location_response['articles'])
+
+    return articles_location_results
 def process_articles(news):
    source_articles = []
    for item_article in news:

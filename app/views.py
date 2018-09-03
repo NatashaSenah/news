@@ -22,7 +22,7 @@ def index():
 #     title  = f'You are viewing{news_id}'
 #     return render_template('news.html',id = news_id)
 @app.route('/news/<string:id>&<int:page_size>')
-def get_articles(id,page_size):
+def articles(id,page_size):
 
    articles = get_new(id,page_size)
    return render_template('news.html',articles=articles)
